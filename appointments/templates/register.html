@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Ol</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f9f9f9;
+        }
+
+        .register-container {
+            background: #f1f5f9;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .register-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        form p {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        form input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        form ul.errorlist {
+            list-style: none;
+            color: red;
+            font-size: 12px;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        form button {
+            width: 100%;
+            padding: 12px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        form button:hover {
+            background: #0f9d6a;
+        }
+
+        .login-link {
+            margin-top: 15px;
+        }
+        .login-link a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="register-container">
+    <h2>Yeni Hesap Oluştur</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Kayıt Ol</button>
+    </form>
+    <div class="login-link">
+        Zaten bir hesabın var mı? <a href="{% url 'login' %}">Giriş Yap</a>
+    </div>
+</div>
+
+</body>
+</html>

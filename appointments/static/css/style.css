@@ -1,0 +1,126 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    margin: 30px auto;
+}
+
+h2 {
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 0 8px rgba(0,0,0,0.05);
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+button, input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+.stat-card.big-score {
+    flex: 1;
+    min-width: 220px;
+    max-width: 280px;
+    background-color: #e9f3ff;
+    color: #1a1a1a;
+    text-align: center;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+    margin: 10px;
+  }
+  
+  .stat-card.big-score h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .stat-card.big-score p {
+    font-size: 40px;
+    font-weight: bold;
+    color: #4285f4;
+    margin: 0;
+  }
+  
+  .stat-card.big-score:hover {
+    transform: scale(1.03);
+  }
+  .tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltiptext {
+    visibility: hidden;
+    width: 240px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 100;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .card-body h2 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #4285f4;
+  }
+  
+  .card-body .yuzde {
+    font-size: 18px;
+    color: #666;
+    margin-left: 4px;
+  }
+  
