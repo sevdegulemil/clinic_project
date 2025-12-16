@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasta Profili - SOLİX Dent Clinic</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { 
+            background-color: #E7ECEF; 
+            font-family: 'Montserrat', sans-serif; 
+            min-height: 100vh; 
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .navbar { margin-bottom: 3rem; }
+
+        .profile-container { 
+            width: 100%;
+            max-width: 1100px; 
+            margin: 0 auto; 
+            padding: 0 15px; 
+        }
+
+        .custom-card { 
+            background-color: #ffffff; 
+            border-radius: 1.5rem; 
+            box-shadow: 0 10px 25px rgba(59, 81, 115, 0.1); 
+            border: none; 
+            padding: 3rem; 
+            margin-bottom: 2.5rem; 
+            width: 100%; 
+        }
+
+        .profile-icon-circle { 
+            width: 180px; 
+            height: 180px; 
+            background-color: #3b5173; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+        }
+
+        .profile-icon-circle img { width: 100%; height: 100%; object-fit: cover; }
+
+        .info-label { color: #3b5173; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 0.2rem; }
+        .appointment-header { color: #3b5173; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; text-align: center; margin-bottom: 2rem; }
+        .table-custom th { padding: 1.2rem; color: #3b5173; }
+        .edit-btn, .save-btn { color: #3b5173; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: 0.3s; cursor: pointer; border: none; background: none; }
+
+        .info-value { color: #333333; font-weight: 500; margin-bottom: 1.5rem; }
+        .table-custom td { padding: 1.2rem; vertical-align: middle; color: #333333; font-weight: 500; border: none; }
+        .form-control-custom { border: 1px solid #ced4da; border-radius: 8px; padding: 8px 12px; margin-bottom: 15px; width: 100%; font-family: 'Montserrat', sans-serif; color: #333333; }
+        
+        .save-btn { color: #6096BA; }
+        .save-btn:disabled { color: #bdc3c7 !important; cursor: not-allowed; opacity: 0.5; }
+        
+        .table-custom { width: 100%; margin-bottom: 0; }
+        .table-custom tr { background-color: #f8f9fa; border-radius: 15px; }
+        .status-badge { padding: 0.6rem 1.2rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700; background-color: #6096BA; color: white; }
+        
+        .hidden { display: none !important; }
+
+        @media (max-width: 768px) {
+            .custom-card { padding: 1.5rem; }
+            .profile-icon-circle { width: 130px; height: 130px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="../assets/Logo.jpg" alt="SOLİX Dent Clinic" style="height: 55px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <div class="custom-card">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-md-4 d-flex justify-content-center mb-4 mb-md-0">
+                    <div class="profile-icon-circle">
+                        <img src="../assets/personicon.jpeg" alt="Profil Fotoğrafı">
+                    </div>
+                </div>
+                
+                <div class="col-lg-9 col-md-8">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="fw-bold m-0" style="color: #3b5173;">HESAP BİLGİLERİ</h4>
+                        <div>
+                            <button id="editToggle" class="edit-btn" onclick="toggleEdit()"><i class="fas fa-edit me-1"></i>DÜZENLE</button>
+                            <button id="saveToggle" class="save-btn hidden" onclick="saveChanges()"><i class="fas fa-check me-1"></i>KAYDET</button>
+                        </div>
+                    </div>
+                    
+                    <div class="row" id="infoDisplay">
+                        <div class="col-sm-6">
+                            <div class="info-label">İsim Soyisim</div>
+                            <div class="info-value" id="val-name">Ahmet Yılmaz</div>
+                            <div class="info-label">Kan Grubu</div>
+                            <div class="info-value" id="val-blood">A Rh(+)</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="info-label">Cinsiyet</div>
+                            <div class="info-value" id="val-gender">Erkek</div>
+                            <div class="info-label">E-Posta</div>
+                            <div class="info-value" id="val-email">ahmet@example.com</div>
+                        </div>
+                    </div>
+
+                    <div class="row hidden" id="infoEdit">
+                        <div class="col-sm-6">
+                            <div class="info-label">İsim Soyisim</div>
+                            <input type="text" id="input-name" class="form-control-custom" oninput="validateForm()">
+                            <div class="info-label">Kan Grubu</div>
+                            <select id="input-blood" class="form-control-custom">
+                                <option value="A Rh(+)">A Rh(+)</option>
+                                <option value="B Rh(+)">B Rh(+)</option>
+                                <option value="AB Rh(+)">AB Rh(+)</option>
+                                <option value="0 Rh(+)">0 Rh(+)</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="info-label">Cinsiyet</div>
+                            <select id="input-gender" class="form-control-custom">
+                                <option value="Erkek">Erkek</option>
+                                <option value="Kadın">Kadın</option>
+                            </select>
+                            <div class="info-label">E-Posta</div>
+                            <input type="email" id="input-email" class="form-control-custom" oninput="validateForm()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="custom-card">
+            <h4 class="appointment-header">GEÇMİŞ RANDEVU KAYITLARI</h4>
+            <div class="table-responsive">
+                <table class="table table-custom text-center align-middle">
+                    <thead>
+                        <tr>
+                            <th class="info-label border-0">TARİH / SAAT</th>
+                            <th class="info-label border-0">DOKTOR BİLGİSİ</th>
+                            <th class="info-label border-0">TIBBİ BRANŞ</th>
+                            <th class="info-label border-0">RANDEVU DURUMU</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointmentList">
+                        <tr>
+                            <td>12.12.2025 - 14:00</td>
+                            <td>Dr. Selin Demir</td>
+                            <td>Genel Diş</td>
+                            <td><span class="status-badge">TAMAMLANDI</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-white py-4 mt-auto" style="background-color: #333333;">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2025 SOLİX Dent Clinic. Tüm Hakları Saklıdır.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function validateForm() {
+            const name = document.getElementById('input-name').value.trim();
+            const email = document.getElementById('input-email').value.trim();
+            const saveBtn = document.getElementById('saveToggle');
+            saveBtn.disabled = (name === "" || email === "");
+        }
+
+        function toggleEdit() {
+            document.getElementById('input-name').value = document.getElementById('val-name').innerText;
+            document.getElementById('input-email').value = document.getElementById('val-email').innerText;
+            document.getElementById('infoDisplay').classList.add('hidden');
+            document.getElementById('editToggle').classList.add('hidden');
+            document.getElementById('infoEdit').classList.remove('hidden');
+            document.getElementById('saveToggle').classList.remove('hidden');
+            validateForm();
+        }
+
+        function saveChanges() {
+            document.getElementById('val-name').innerText = document.getElementById('input-name').value;
+            document.getElementById('val-email').innerText = document.getElementById('input-email').value;
+            document.getElementById('val-blood').innerText = document.getElementById('input-blood').value;
+            document.getElementById('val-gender').innerText = document.getElementById('input-gender').value;
+            document.getElementById('infoDisplay').classList.remove('hidden');
+            document.getElementById('editToggle').classList.remove('hidden');
+            document.getElementById('infoEdit').classList.add('hidden');
+            document.getElementById('saveToggle').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
