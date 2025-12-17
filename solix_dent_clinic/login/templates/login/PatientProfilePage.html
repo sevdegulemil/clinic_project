@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -75,7 +76,7 @@ if (role !== "patient") {
 <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
     <div class="container d-flex align-items-center">
         <a class="navbar-brand" href="Home.html">
-            <img src="../assets/Logo.jpg" alt="SOLİX Dent Clinic" style="height: 55px;">
+            <img src="{% static 'Logo.jpg' %}" alt="SOLİX Dent Clinic" style="height: 55px;">
         </a>
 
         <!-- 🚪 LOGOUT BUTONU -->
@@ -90,7 +91,7 @@ if (role !== "patient") {
         <div class="row align-items-center">
             <div class="col-lg-3 d-flex justify-content-center">
                 <div class="profile-icon-circle">
-                    <img src="../assets/personicon.jpeg">
+                    <img src="{% static 'personicon.jpeg' %}">
                 </div>
             </div>
 
