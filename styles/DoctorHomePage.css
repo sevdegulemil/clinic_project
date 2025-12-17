@@ -1,0 +1,218 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #E7ECEF;
+    color: #333333;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.navbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid #dee2e6;
+    flex-shrink: 0;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.navbar-brand img {
+    height: 50px;
+    width: auto;
+}
+
+
+.card-custom {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.date-display-card {
+    border-left: 4px solid #3b5173 !important;
+    background-color: #ffffff;
+}
+
+.waitlist-card {
+    border-left: 4px solid #f48c06;
+    background-color: #fff8f0;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+
+.btn-primary {
+    background-color: #3b5173;
+    border-color: #3b5173;
+}
+
+.btn-primary:hover {
+    background-color: #1a3655;
+    border-color: #1a3655;
+}
+
+.btn-outline-primary {
+    color: #3b5173;
+    border-color: #3b5173;
+}
+
+.btn-outline-primary:hover {
+    background-color: #3b5173;
+    color: #fff;
+}
+
+
+.profile-btn {
+    background-color: #3b5173 !important;
+    color: #ffffff !important;
+    transition: 0.3s !important;
+}
+
+.profile-btn:hover,
+.profile-btn.show {
+    background-color: #1a3655 !important;
+    color: #ffffff !important;
+}
+
+.text-primary-custom {
+    color: #3b5173;
+}
+
+
+.occupancy-wrapper {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.progress {
+    height: 10px;
+    border-radius: 5px;
+    background-color: #e9ecef;
+}
+
+.progress-bar {
+    background-color: #3b5173;
+}
+
+
+.fc .fc-day-today {
+    background-color: #ffffff !important;
+}
+
+.fc-timegrid-slot {
+    height: 3.5em !important;
+}
+
+.fc-event {
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.fc-bg-event {
+    opacity: 0.8 !important;
+    cursor: pointer;
+}
+
+
+.custom-footer {
+    background-color: #333333;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+    color: white;
+    flex-shrink: 0;
+}
+
+.pager-chat {
+    position: fixed;
+    bottom: 60px;
+    right: 20px;
+    width: 320px;
+    background: white;
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #dee2e6;
+    border-bottom: none;
+}
+
+.pager-header {
+    background: #f48c06;
+    color: white;
+    padding: 12px 15px;
+    border-radius: 15px 15px 0 0;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pager-body {
+    height: 250px;
+    overflow-y: auto;
+    padding: 15px;
+    background: #f8f9fa;
+    display: none;
+}
+
+.pager-footer {
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    background: white;
+    display: none;
+}
+
+.pager-chat.open .pager-body,
+.pager-chat.open .pager-footer {
+    display: block;
+}
+
+@media (max-width: 992px) {
+    body,
+    .main-content {
+        overflow: auto;
+        height: auto;
+    }
+
+    .col-lg-3,
+    .col-lg-6 {
+        margin-bottom: 1.5rem;
+    }
+
+    .card-custom {
+        height: auto;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    #calendar {
+        min-height: 500px;
+    }
+}
