@@ -221,6 +221,9 @@
         });
         calendar.render();
         
+        // Fetch branches on page load to initialize the form
+        fetchBranches();
+
         function handleSlotSelect(info) {
             Swal.fire({
                 title: 'Randevu Onayı',

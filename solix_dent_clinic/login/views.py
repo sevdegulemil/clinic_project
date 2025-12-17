@@ -53,13 +53,15 @@ def login_view(request):
             status=400
         )
 
-    try:
-        user_obj = User.objects.get(email=email)
-    except User.DoesNotExist:
+    users = User.objects.filter(email=email)
+    if users.count() != 1:
+        # If no user or multiple users found, return invalid credentials
         return JsonResponse(
             {"ok": False, "error": "Invalid credentials"},
             status=401
         )
+
+    user_obj = users.first()
 
     user = authenticate(
         request,
