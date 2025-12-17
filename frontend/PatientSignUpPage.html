@@ -54,8 +54,14 @@
 
         @media (max-width: 991px) {
             .main-container { flex-direction: column; }
-            .left-panel { height: 40vh; }
-            .right-panel { height: 60vh; }
+            .left-panel { 
+                min-height: 40vh;
+                flex-grow: 1;
+            }
+            .right-panel { 
+                min-height: 60vh;
+                flex-grow: 1;
+            }
         }
 
         @media (min-width: 992px) {
