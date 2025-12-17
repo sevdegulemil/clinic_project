@@ -21,6 +21,8 @@ cd clinic_project/solix_dent_clinic dizinine gidin
 
 docker compose up --build
 
+(login sayfasında login ---> test@test.com  | şifre ---> 1234 yapınız)
+
 Bu komut aşağıdaki servisleri otomatik olarak yapılandırır ve başlatır:
 
 🐍 Django Backend
