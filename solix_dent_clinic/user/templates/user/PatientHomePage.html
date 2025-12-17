@@ -1,0 +1,353 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOLİX Dent - Randevu Paneli</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+    
+    <style>
+        /* --- GENEL TASARIM --- */
+        body { font-family: 'Montserrat', sans-serif; background-color: #E7ECEF; color: #333333; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        .navbar { background-color: #ffffff; border-bottom: 1px solid #dee2e6; flex-shrink: 0; }
+        .main-content { flex-grow: 1; padding: 20px; overflow: hidden; }
+        .navbar-brand { font-weight: bold; font-size: 1.5rem; }
+        .navbar-brand img { height: 50px; width: auto; }
+        .card-custom { background-color: #ffffff; border: none; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); padding: 20px; height: 100%; display: flex; flex-direction: column; overflow-y: auto; }
+        
+        /* BUTONLAR */
+        .btn-primary { background-color: #3b5173; border-color: #3b5173; }
+        .btn-primary:hover { background-color: #1a3655; border-color: #1a3655; }
+        .btn-outline-primary { color: #3b5173; border-color: #3b5173; }
+        .btn-outline-primary:hover { background-color: #3b5173; color: #fff; }
+
+        /* PROFİL BUTONU */
+        .profile-btn {
+            background-color: #3b5173 !important; 
+            color: #ffffff !important;             
+            transition: 0.3s !important;
+        }
+        .profile-btn:hover, .profile-btn:focus, .profile-btn:active, .profile-btn.show {
+            background-color: #1a3655 !important; 
+            color: #ffffff !important;
+            border-color: transparent !important;
+            box-shadow: none !important;
+        }
+
+        /* TURUNCU BUTONLAR */
+        .btn-orange { background-color: #f48c06; border-color: #f48c06; color: white; }
+        .btn-orange:hover { background-color: #d67600; border-color: #d67600; color: white; }
+
+        /* TAKVİM TASARIMI */
+        .fc .fc-day-today { background-color: #ffffff !important; }
+        .fc-timegrid-slot { height: 3.5em !important; background-color: #ffffff; }
+        .fc-timegrid-slot-lane:hover { background-color: rgba(59, 81, 115, 0.05) !important; cursor: pointer; }
+        .fc-col-header-cell { display: none !important; } 
+        .fc-event { border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 6px; padding: 2px 5px; font-weight: 600; }
+
+        /* FOOTER & CHAT */
+        .custom-footer {
+            background-color: #333333;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: auto;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .pager-chat { 
+            position: fixed; 
+            bottom: 60px; 
+            right: 20px; 
+            width: 320px; 
+            background: white; 
+            border-radius: 15px 15px 0 0; 
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1); 
+            z-index: 1000; 
+            display: flex; 
+            flex-direction: column; 
+            border: 1px solid #dee2e6;
+            border-bottom: none; 
+        }
+        .pager-header { background: #f48c06; color: white; padding: 12px 15px; border-radius: 15px 15px 0 0; cursor: pointer; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+        .pager-body { height: 250px; overflow-y: auto; padding: 15px; background: #f8f9fa; display: none; }
+        .pager-footer { padding: 10px; border-top: 1px solid #ddd; background: white; display: none; }
+        .pager-chat.open .pager-body, .pager-chat.open .pager-footer { display: block; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'user:patient_home' %}">
+            <img src="{% static 'images/Logo.jpg' %}" alt="SOLİX Dent Clinic" style="height: 55px;">
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav align-items-center">
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn border-0 rounded-pill px-3 py-2 dropdown-toggle d-flex align-items-center profile-btn" type="button" data-bs-toggle="dropdown">
+                            <img src="{% static 'images/personicon.jpeg' %}" alt="Profil" class="rounded-circle me-2 border border-white" style="width: 30px; height: 30px; object-fit: cover;">
+                            <span class="fw-medium">Ayşenur Mayuk</span>
+                        </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow">
+                        <li><a class="dropdown-item" href="{% url 'user:patient_profile' %}" style="color: #1a3655;">Profilim</a></li>
+                        <li><a class="dropdown-item text-danger" href="{% url 'login:logout' %}">Çıkış Yap</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid main-content">
+    <div class="row h-100 g-3">
+        <div class="col-lg-3 h-100">
+            <div class="card-custom">
+                <h5 class="fw-bold mb-4" style="color: #3b5173;"><i class="bi bi-search me-2"></i>Randevu Ara</h5>
+                <form id="appointment-form">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-muted">Tarih</label>
+                        <input type="date" id="datePicker" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-muted">Branş</label>
+                        <select class="form-select" id="branchSelect">
+                            <option selected disabled>Branş Seçiniz</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-bold small text-muted">Doktor</label>
+                        <select class="form-select" id="doctorSelect" disabled>
+                            <option value="">Önce Branş Seçiniz</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-primary w-100 py-2 rounded-pill shadow-sm" onclick="listSlots()">
+                        <i class="bi bi-calendar-check me-2"></i>Slotları Listele
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-6 h-100">
+            <div class="card-custom p-0">
+                <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-white sticky-top" style="z-index: 10;">
+                    <div>
+                        <h5 class="fw-bold mb-0" id="calendarTitle">Müsaitlik Durumu</h5>
+                        <small class="text-muted" id="calendarSubtitle">Randevu almak için seçim yapınız.</small>
+                    </div>
+                </div>
+                <div class="p-2 h-100 overflow-auto">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="card-custom position-relative" style="height: 350px;">
+                <h5 class="fw-bold mb-4" style="color: #3b5173;">Randevularım</h5>
+                <div id="activeAppointmentsList" class="vstack gap-3">
+                    <div class="text-center text-muted mt-5">
+                        <i class="bi bi-calendar-x fs-1 opacity-50"></i>
+                        <p class="mt-2 small">Henüz aktif bir randevunuz bulunmamaktadır.</p>
+                    </div>
+                </div>
+                <div class="pager-chat" id="pagerChat">
+                    <div class="pager-header" onclick="toggleChat()">
+                        <span><i class="bi bi-chat-dots-fill me-2"></i>Asistan Sohbet</span>
+                        <i class="bi bi-chevron-up" id="chatIcon"></i>
+                    </div>
+                    <div class="pager-body" id="chatBody">
+                        <div class="d-flex mb-3">
+                            <div class="bg-light p-2 rounded text-dark small w-75">
+                                Merhaba, randevunuzla ilgili bir sorunuz mu var?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pager-footer">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-sm" placeholder="Mesajınız..." id="chatInput">
+                            <button class="btn btn-orange btn-sm" onclick="sendMessage()"><i class="bi bi-send"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const datePicker = document.getElementById('datePicker');
+        const branchSelect = document.getElementById('branchSelect');
+        const doctorSelect = document.getElementById('doctorSelect');
+        const calendarEl = document.getElementById('calendar');
+        const calendarTitle = document.getElementById('calendarTitle');
+        const calendarSubtitle = document.getElementById('calendarSubtitle');
+
+        // Set min date for datepicker
+        const today = new Date().toISOString().split('T')[0];
+        datePicker.setAttribute('min', today);
+        datePicker.value = today;
+
+        let calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridDay',
+            locale: 'tr',
+            headerToolbar: false,
+            allDaySlot: false,
+            dayHeaders: false,
+            slotMinTime: '09:00:00',
+            slotMaxTime: '18:00:00',
+            slotDuration: '00:30:00',
+            selectable: true,
+            select: handleSlotSelect,
+        });
+        calendar.render();
+        
+        function handleSlotSelect(info) {
+            Swal.fire({
+                title: 'Randevu Onayı',
+                text: `Bu slotu onaylıyor musunuz?`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Evet, Onayla',
+                cancelButtonText: 'Vazgeç'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    bookAppointment(info.event.id);
+                }
+            });
+        }
+        
+        function bookAppointment(slotId) {
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            fetch("{% url 'doctor:book_appointment' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': csrfToken
+                },
+                body: `slot_id=${slotId}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    Swal.fire('Başarılı!', data.message, 'success');
+                    listSlots(); // Refresh slots
+                } else {
+                    Swal.fire('Hata!', data.message, 'error');
+                }
+            });
+        }
+
+        datePicker.addEventListener('change', () => {
+            branchSelect.disabled = false;
+            branchSelect.innerHTML = '<option value="" selected disabled>Branş Seçiniz...</option>';
+            doctorSelect.disabled = true;
+            doctorSelect.innerHTML = '<option value="">Önce Branş Seçiniz</option>';
+            fetchBranches();
+        });
+
+        branchSelect.addEventListener('change', () => {
+            doctorSelect.disabled = false;
+            doctorSelect.innerHTML = '<option value="">Doktor Seçiniz...</option>';
+            fetchDoctors();
+        });
+
+        doctorSelect.addEventListener('change', listSlots);
+
+
+        function fetchBranches() {
+            fetch("{% url 'doctor:get_branches' %}")
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(branch => {
+                        const option = new Option(branch, branch);
+                        branchSelect.add(option);
+                    });
+                });
+        }
+
+        function fetchDoctors() {
+            const selectedBranch = branchSelect.value;
+            fetch(`{% url 'doctor:get_doctors' %}?branch=${selectedBranch}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(doctor => {
+                        const option = new Option(doctor.name, doctor.id);
+                        doctorSelect.add(option);
+                    });
+                });
+        }
+        
+        function listSlots() {
+            const doctorId = doctorSelect.value;
+            const date = datePicker.value;
+
+            if (!doctorId || !date) {
+                Swal.fire('Uyarı', 'Lütfen tarih, branş ve doktor seçiniz.', 'warning');
+                return;
+            }
+
+            fetch(`{% url 'doctor:get_slots' %}?doctor_id=${doctorId}&date=${date}`)
+                .then(response => response.json())
+                .then(slots => {
+                    calendar.removeAllEvents();
+                    slots.forEach(slot => {
+                        calendar.addEvent({
+                            id: slot.id,
+                            title: 'Müsait',
+                            start: slot.start_time,
+                            end: slot.end_time,
+                            display: 'background'
+                        });
+                    });
+                    calendar.gotoDate(date);
+                    calendarTitle.innerText = `${doctorSelect.options[doctorSelect.selectedIndex].text} - Müsaitlik`;
+                    calendarSubtitle.innerText = 'Randevu almak için bir slota tıklayınız.';
+                });
+        }
+    });
+
+    // Dummy functions for chat and right panel
+    function updateRightPanel() {}
+    function cancelAppointment(id) {}
+    function toggleChat() {}
+    function sendMessage() {}
+</script>
+
+<footer class="custom-footer">
+    <div class="container text-center">
+        <p class="mb-0">© 2025 SOLIX Dent Clinic. Tüm Hakları Saklıdır.</p>
+    </div>
+</footer>
+
+</body>
+</html>
+
+
+<footer class="custom-footer">
+    <div class="container text-center">
+        <p class="mb-0">© 2025 SOLIX Dent Clinic. Tüm Hakları Saklıdır.</p>
+    </div>
+</footer>
+
+</body>
+</html>
