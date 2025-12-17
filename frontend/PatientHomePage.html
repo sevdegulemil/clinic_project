@@ -11,7 +11,6 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
     
     <style>
-        /* --- GENEL TASARIM --- */
         body { font-family: 'Montserrat', sans-serif; background-color: #E7ECEF; color: #333333; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
         .navbar { background-color: #ffffff; border-bottom: 1px solid #dee2e6; flex-shrink: 0; }
         .main-content { flex-grow: 1; padding: 20px; overflow: hidden; }
@@ -19,33 +18,27 @@
         .navbar-brand img { height: 50px; width: auto; }
         .card-custom { background-color: #ffffff; border: none; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); padding: 20px; height: 100%; display: flex; flex-direction: column; overflow-y: auto; }
         
-        /* BUTONLAR */
         .btn-primary { background-color: #3b5173; border-color: #3b5173; }
         .btn-primary:hover { background-color: #1a3655; border-color: #1a3655; }
         
-        /* DROPDOWN HOVER DÜZENLEME */
         .dropdown-item:hover { background-color: transparent !important; color: #1a3655 !important; }
         .dropdown-item.text-danger:hover { background-color: transparent !important; color: #dc3545 !important; }
 
-        /* PROFİL BUTONU */
         .profile-btn { background-color: #3b5173 !important; color: #ffffff !important; transition: 0.3s !important; }
         .profile-btn:hover, .profile-btn:focus, .profile-btn:active, .profile-btn.show {
             background-color: #1a3655 !important; color: #ffffff !important;
             border-color: transparent !important; box-shadow: none !important;
         }
 
-        /* TURUNCU BUTONLAR */
         .btn-orange { background-color: #f48c06; border-color: #f48c06; color: white; }
         .btn-orange:hover { background-color: #d67600; border-color: #d67600; color: white; }
 
-        /* TAKVİM TASARIMI */
         .fc .fc-day-today { background-color: #ffffff !important; }
         .fc-timegrid-slot { height: 3.5em !important; background-color: #ffffff; }
         .fc-timegrid-slot-lane:hover { background-color: rgba(59, 81, 115, 0.05) !important; cursor: pointer; }
         .fc-col-header-cell { display: none !important; } 
         .fc-event { border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 6px; padding: 2px 5px; font-weight: 600; }
 
-        /* FOOTER & CHAT */
         .custom-footer { background-color: #333333; height: 60px; display: flex; align-items: center; justify-content: center; margin-top: auto; color: white; flex-shrink: 0; }
         .pager-chat { position: fixed; bottom: 60px; right: 20px; width: 320px; background: white; border-radius: 15px 15px 0 0; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); z-index: 1000; display: flex; flex-direction: column; border: 1px solid #dee2e6; border-bottom: none; }
         .pager-header { background: #f48c06; color: white; padding: 12px 15px; border-radius: 15px 15px 0 0; cursor: pointer; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
@@ -201,22 +194,33 @@
             slotMaxTime: '18:00:00',
             slotDuration: '00:30:00',
             selectable: false,
-            selectOverlap: false, // DOLU SLOTLARIN ÜSTÜNE SEÇİM YAPILAMAZ
+            selectOverlap: false,
             editable: false,
             eventDurationEditable: false,
             initialDate: today,
             
             select: function(info) {
-                // Bugünün geçmiş saatlerini engelle
                 if (info.start < new Date()) {
-                    Swal.fire({ icon: 'error', title: 'Hata', text: 'Geçmiş bir zamana randevu alamazsınız.' });
+                      Swal.fire({ 
+                    title: 'Hata', 
+                    text: 'Geçmiş bir zamana randevu alamazsınız.', 
+                    icon: 'error',
+                    confirmButtonText: 'Tamam',
+                    confirmButtonColor: '#f48c06' 
+                });
                     calendar.unselect();
                     return;
                 }
 
                 const currentEvents = calendar.getEvents().filter(e => e.display !== 'background');
                 if (currentEvents.length > 0) {
-                    Swal.fire({ icon: 'error', title: 'Hata', text: 'Aynı gün için sadece 1 randevu alabilirsiniz.' });
+                      Swal.fire({ 
+                    title: 'Hata', 
+                    text: 'Aynı gün için sadece 1 randevu alabilirsiniz.', 
+                    icon: 'error',
+                    confirmButtonText: 'Tamam',
+                    confirmButtonColor: '#f48c06' 
+                });
                     calendar.unselect();
                     return;
                 }
@@ -276,7 +280,13 @@
         const selectedDate = document.getElementById('datePicker').value;
         
         if(!docName) {
-            Swal.fire('Uyarı', 'Lütfen bir doktor seçiniz.', 'warning');
+          Swal.fire({ 
+            title: 'Uyarı', 
+            text: 'Lütfen bir doktor seçiniz.', 
+            icon: 'warning',
+            confirmButtonText: 'Tamam',
+            confirmButtonColor: '#f48c06' 
+        });
             return;
         }
 
@@ -284,7 +294,6 @@
         calendar.setOption('selectable', true);
         calendar.removeAllEvents();
 
-        // DUMMY DOLU SLOT (Arka Plan Etkinliği)
         calendar.addEvent({
             title: 'Dolu',
             start: selectedDate + 'T12:00:00',
@@ -317,7 +326,7 @@
                         </div>
                         <h6 class="fw-bold mb-1">${docName}</h6>
                         <p class="small fw-bold mb-3"><i class="bi bi-clock me-1"></i>${formatTime(event.start)} - ${formatTime(event.end)}</p>
-                        <button class="btn btn-sm btn-outline-danger w-100" onclick="cancelAppointment('${event.id}')">İptal Et</button>
+                        <button class="btn btn-sm btn-outline-danger w-100 rounded-pill" onclick="cancelAppointment('${event.id}')">İptal Et</button>
                     </div>
                 </div>`;
         });

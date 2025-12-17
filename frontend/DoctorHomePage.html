@@ -11,7 +11,7 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
     
     <style>
-        /* --- GENEL TASARIM --- */
+
         body { font-family: 'Montserrat', sans-serif; background-color: #E7ECEF; color: #333333; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
         .navbar { background-color: #ffffff; border-bottom: 1px solid #dee2e6; flex-shrink: 0; }
         .main-content { flex-grow: 1; padding: 20px; overflow: hidden; }
@@ -19,38 +19,34 @@
         .navbar-brand img { height: 50px; width: auto; }
         .card-custom { background-color: #ffffff; border: none; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); padding: 20px; height: 100%; display: flex; flex-direction: column; overflow-y: auto; }
         
-        /* RENKLER */
+
         .btn-primary { background-color: #3b5173; border-color: #3b5173; }
         .btn-primary:hover { background-color: #1a3655; border-color: #1a3655; }
         .text-primary-custom { color: #3b5173; }
+        
+        .btn-outline-primary { color: #3b5173; border-color: #3b5173; }
+        .btn-outline-primary:hover { background-color: #3b5173; color: #fff; }
 
-        /* PROFİL BUTONU */
+
         .profile-btn { background-color: #3b5173 !important; color: #ffffff !important; transition: 0.3s !important; }
         .profile-btn:hover, .profile-btn.show { background-color: #1a3655 !important; color: #ffffff !important; }
 
-        /* BEKLEME LİSTESİ */
-        .waitlist-card {
-            border-left: 4px solid #f48c06;
-            background-color: #fff8f0;
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            cursor: grab;
-        }
 
-        /* PROGRESS BAR */
+        .date-display-card { border-left: 4px solid #3b5173 !important; background-color: #ffffff; }
+        .waitlist-card { border-left: 4px solid #f48c06; background-color: #fff8f0; margin-bottom: 10px; padding: 10px; border-radius: 10px; font-size: 0.9rem; }
+
+    
         .occupancy-wrapper { text-align: center; margin-bottom: 20px; }
         .progress { height: 10px; border-radius: 5px; background-color: #e9ecef; }
         .progress-bar { background-color: #3b5173; }
 
-        /* TAKVİM */
+   
         .fc .fc-day-today { background-color: #ffffff !important; }
         .fc-timegrid-slot { height: 3.5em !important; }
         .fc-event { border: none; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-radius: 4px; padding: 2px; cursor: pointer; }
-        .fc-bg-event { opacity: 0.6 !important; cursor: pointer; } 
+        .fc-bg-event { opacity: 0.8 !important; cursor: pointer; } 
 
-        /* CHAT & FOOTER */
+
         .custom-footer { background-color: #333333; height: 60px; display: flex; align-items: center; justify-content: center; margin-top: auto; color: white; flex-shrink: 0; }
         .pager-chat { position: fixed; bottom: 60px; right: 20px; width: 320px; background: white; border-radius: 15px 15px 0 0; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); z-index: 1000; display: flex; flex-direction: column; border: 1px solid #dee2e6; border-bottom: none; }
         .pager-header { background: #f48c06; color: white; padding: 12px 15px; border-radius: 15px 15px 0 0; cursor: pointer; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
@@ -86,11 +82,6 @@
         <a class="navbar-brand" href="Home.html">
             <img src="../assets/Logo.jpg" alt="SOLİX Dent Clinic" style="height: 55px;">
         </a>
-        
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav align-items-center">
                 <li class="nav-item">
@@ -115,7 +106,6 @@
         <div class="col-lg-3 col-md-12">
             <div class="card-custom">
                 <h5 class="fw-bold mb-4 text-primary-custom"><i class="bi bi-bar-chart-fill me-2"></i>Genel Durum</h5>
-                
                 <div class="occupancy-wrapper p-3 bg-light rounded mb-4">
                     <div class="d-flex justify-content-between mb-1">
                         <span class="small fw-bold">Günlük Doluluk</span>
@@ -129,21 +119,32 @@
 
                 <hr class="my-3">
 
+                <div class="p-3 shadow-sm rounded mb-4 date-display-card">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-calendar3 fs-4 text-primary-custom me-3"></i>
+                        <div>
+                            <h6 class="fw-bold mb-0 text-primary-custom">Tarih</h6>
+                            <small class="text-muted text-uppercase fw-semibold" style="font-size: 0.65rem; letter-spacing: 1px;">Çalışma Günü Seçimi</small>
+                        </div>
+                    </div>
+                    <input type="date" id="datePicker" class="form-control form-control-sm border-0 bg-light mt-2" style="cursor: pointer;">
+                </div>
+
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h6 class="fw-bold mb-0 text-primary-custom">Bekleme Listesi</h6>
-                    <span class="badge bg-warning text-dark rounded-pill">3</span>
+                    <span class="badge rounded-pill" style="background-color: #A3CEF1; color: #1a3655;">3</span>
                 </div>
 
                 <div class="vstack gap-2 overflow-auto" style="max-height: 400px;">
                     <div class="waitlist-card">
-                        <div class="d-flex justify-content-between"><strong>Mehmet Özkan</strong></div>
-                        <div class="small text-muted">Kanal Tedavisi</div>
-                        <div class="d-flex justify-content-end mt-2"><button class="btn btn-sm btn-outline-primary py-0" style="font-size: 0.75rem;">Slot Ata</button></div>
+                        <div class="fw-bold text-dark">Mehmet Özkan</div>
+                        <div class="small text-muted mb-2">Kanal Tedavisi</div>
+                        <button class="btn btn-sm btn-outline-primary w-100 rounded-pill">Slot Ata</button>
                     </div>
                     <div class="waitlist-card">
-                        <div class="d-flex justify-content-between"><strong>Zeynep Demir</strong></div>
-                        <div class="small text-muted">Genel Kontrol</div>
-                        <div class="d-flex justify-content-end mt-2"><button class="btn btn-sm btn-outline-primary py-0" style="font-size: 0.75rem;">Slot Ata</button></div>
+                        <div class="fw-bold text-dark">Zeynep Demir</div>
+                        <div class="small text-muted mb-2">Genel Kontrol</div>
+                        <button class="btn btn-sm btn-outline-primary w-100 rounded-pill">Slot Ata</button>
                     </div>
                 </div>
             </div>
@@ -151,14 +152,11 @@
 
         <div class="col-lg-6 col-md-12">
             <div class="card-custom p-0">
-                <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-white sticky-top" style="z-index: 10;">
-                    <div>
-                        <h5 class="fw-bold mb-0 text-primary-custom">Slot Yönetimi</h5>
-                        <small class="text-muted">Boş alana tıklayıp sürükleyerek müsaitlik ekleyin.</small>
-                    </div>
+                <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-white sticky-top">
+                    <h5 class="fw-bold mb-0 text-primary-custom">Slot Yönetimi</h5>
                     <div class="d-flex gap-2">
-                        <span class="badge bg-success bg-opacity-25 text-success border border-success">Müsait</span>
-                        <span class="badge bg-primary bg-opacity-25 text-primary border border-primary">Dolu</span>
+                        <span class="badge text-dark border" style="background-color: #E7ECEF;">Müsait</span>
+                        <span class="badge text-white border" style="background-color: #f48c06;">Dolu</span>
                     </div>
                 </div>
                 <div class="p-2 h-100 overflow-auto">
@@ -167,25 +165,19 @@
             </div>
         </div>
 
+
         <div class="col-lg-3 col-md-12">
             <div class="card-custom position-relative" style="height: 425px;">
-                <h5 class="fw-bold mb-4 text-primary-custom">Atanmış Randevular</h5>
-                
-                <div id="appointmentList" class="vstack gap-3 overflow-auto" style="flex-grow: 1; margin-bottom: 20px;">
-                    </div>
 
+                <h5 class="fw-bold mb-4 text-primary-custom">Atanmış Randevular</h5>
+                <div id="appointmentList" class="vstack gap-3 overflow-auto"></div>
+                
                 <div class="pager-chat" id="pagerChat">
                     <div class="pager-header" onclick="toggleChat()">
                         <span><i class="bi bi-chat-dots-fill me-2"></i>Asistan Sohbet</span>
-                        <i class="bi bi-chevron-up" id="chatIcon"></i>
+                        <i class="bi bi-chevron-up"></i>
                     </div>
-                    <div class="pager-body" id="chatBody">
-                        <div class="d-flex mb-3">
-                            <div class="bg-light p-2 rounded text-dark small w-75">
-                                Hocam, 14:30 randevusu 10 dakika geç kalacakmış.
-                            </div>
-                        </div>
-                    </div>
+                    <div class="pager-body" id="chatBody"></div>
                     <div class="pager-footer">
                         <div class="input-group">
                             <input type="text" class="form-control form-control-sm" placeholder="Mesajınız..." id="chatInput">
@@ -205,8 +197,13 @@
     var calendar;
 
     document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
+        const datePicker = document.getElementById('datePicker');
+        const today = new Date().toISOString().split('T')[0];
+   
+        datePicker.setAttribute('min', today);
+        datePicker.value = today;
 
+        var calendarEl = document.getElementById('calendar');
         calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'timeGridDay',
             locale: 'tr',
@@ -218,183 +215,115 @@
             selectable: true,
             editable: true,
             dayHeaders: false,
+
+            selectAllow: function(selectInfo) {
+    
+                if (selectInfo.start < new Date()) {
+                    return false;
+                }
+
+           
+                const events = calendar.getEvents();
+                return !events.some(event => (selectInfo.start < event.end && selectInfo.end > event.start));
+            },
             
-            // --- 1. DOKTOR SLOT AÇMA ---
             select: function(info) {
                 Swal.fire({
                     title: 'Slot Aç',
-                    html: `<b>${formatTime(info.start)} - ${formatTime(info.end)}</b> aralığını müsait olarak işaretle?`,
+                    html: `<b>${formatTime(info.start)} - ${formatTime(info.end)}</b> aralığını müsait işaretle?`,
                     icon: 'question',
                     showCancelButton: true,
                     confirmButtonText: 'Evet, Aç',
-                    confirmButtonColor: '#198754',
+                    confirmButtonColor: '#f48c06',
                     cancelButtonText: 'İptal'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         calendar.addEvent({
-                            id: 'slot_' + Date.now(), // Benzersiz ID
+                            id: 'slot_' + Date.now(),
                             title: 'Müsait',
                             start: info.start,
                             end: info.end,
                             display: 'background',
-                            color: '#d1e7dd'
+                            color: '#E7ECEF'
                         });
-                        Swal.fire({
-                            title: 'Başarılı',
-                            text: 'Slot kullanıma açıldı.',
-                            icon: 'success',
-                            confirmButtonColor: '#198754',
-                            confirmButtonText: 'Tamam'
-                        });
+                        Swal.fire({ title: 'Başarılı', text: 'Slot açıldı.', icon: 'success', confirmButtonColor: '#f48c06' });
                     }
                 });
                 calendar.unselect();
             },
 
-            // --- 2. TAKVİM TIKLAMA MANTIĞI (GÜNCELLENDİ) ---
             eventClick: function(info) {
-                
-                // A) MÜSAİT SLOT (YEŞİL): KAPATMAYA İZİN VER
                 if (info.event.display === 'background') {
                     Swal.fire({
                         title: 'Slotu Kapat?',
-                        text: "Bu müsaitlik aralığını kaldırmak istiyor musunuz?",
+                        text: "Müsaitliği kaldırmak istiyor musunuz?",
                         icon: 'question',
                         showCancelButton: true,
                         confirmButtonText: 'Evet, Kapat',
-                        cancelButtonText: 'Hayır',
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#3085d6'
+                        confirmButtonColor: '#d33'
                     }).then((result) => {
-                        if (result.isConfirmed) {
-                            info.event.remove();
-                            Swal.fire('Kapatıldı', 'Slot kaldırıldı.', 'success');
-                        }
+                        if (result.isConfirmed) info.event.remove();
                     });
-                } 
-                // B) DOLU RANDEVU (MAVİ): SADECE BİLGİ VER (SİLME YOK)
-                else {
+                } else {
                     Swal.fire({
                         title: 'Randevu Detayı',
-                        html: `
-                            <p class="mb-1"><strong>Hasta:</strong> ${info.event.title}</p>
-                            <p class="mb-1"><strong>Saat:</strong> ${formatTime(info.event.start)} - ${formatTime(info.event.end)}</p>
-                            <hr>
-                            <small class="text-danger"><i class="bi bi-info-circle me-1"></i>İptal etmek için sağ paneldeki listeyi kullanınız.</small>
-                        `,
+                        html: `<p><strong>Hasta:</strong> ${info.event.title}</p><p><strong>Saat:</strong> ${formatTime(info.event.start)} - ${formatTime(info.event.end)}</p>`,
                         icon: 'info',
-                        confirmButtonColor: '#3b5173',
-                        confirmButtonText: 'Tamam'
+                        confirmButtonColor: '#f48c06'
                     });
                 }
             },
 
-            // --- VARSAYILAN DATALAR (ID EKLENDİ) ---
             events: [
-                {
-                    id: 'r1',
-                    title: 'Ayşe Yılmaz',
-                    start: '2025-12-17T10:00:00',
-                    end: '2025-12-17T10:30:00',
-                    color: '#3b5173'
-                },
-                {
-                    id: 'r2',
-                    title: 'Kemal Sunal',
-                    start: '2025-12-17T14:30:00',
-                    end: '2025-12-17T15:00:00',
-                    color: '#3b5173'
-                },
-                {
-                    id: 's1',
-                    title: 'Müsait',
-                    start: '2025-12-17T11:00:00',
-                    end: '2025-12-17T12:00:00',
-                    display: 'background',
-                    color: '#d1e7dd'
-                }
+                { id: 'r1', title: 'Ayşe Yılmaz', start: today + 'T10:00:00', end: today + 'T10:30:00', color: '#f48c06', textColor: '#ffffff' },
+                { id: 'r2', title: 'Kemal Sunal', start: today + 'T14:30:00', end: today + 'T15:00:00', color: '#f48c06', textColor: '#ffffff' }
             ]
         });
 
         calendar.render();
-        updateRightPanelList(); // Sayfa açılınca listeyi doldur
+        updateRightPanelList();
+
+        datePicker.addEventListener('change', function(e) {
+            calendar.gotoDate(e.target.value);
+        });
     });
 
-    // --- 3. SAĞ PANEL LİSTESİNİ DOLDURMA ---
     function updateRightPanelList() {
         const listContainer = document.getElementById('appointmentList');
-        // Sadece dolu randevuları (background olmayanları) al
         const events = calendar.getEvents().filter(e => e.display !== 'background');
-        
-        listContainer.innerHTML = ''; // Temizle
-
-        if (events.length === 0) {
-            listContainer.innerHTML = '<div class="text-muted text-center mt-4">Randevu yok.</div>';
-            return;
-        }
-
-        // Tarihe göre sırala
+        listContainer.innerHTML = ''; 
         events.sort((a, b) => a.start - b.start);
-
         events.forEach(event => {
-            const html = `
-                <div class="card border-0 shadow-sm mb-2" style="background-color: #f0f4f8; border-left: 5px solid #3b5173 !important;">
+            listContainer.innerHTML += `
+                <div class="card border-0 shadow-sm mb-2" style="background-color:#f6f9fc; border-left: 5px solid #1a3655 !important;">
                     <div class="card-body p-3">
                         <div class="d-flex justify-content-between mb-1">
-                            <span class="badge bg-primary">${formatTime(event.start)}</span>
-                            <small class="text-muted">17 Ara</small>
+                            <span class="badge" style="background-color: #f48c06;">${formatTime(event.start)}</span>
+                            <small class="text-muted">Randevu</small>
                         </div>
                         <h6 class="fw-bold mb-1 text-dark">${event.title}</h6>
-                        <small class="text-muted d-block mb-2">Genel Muayene</small>
-                        
-                        <button class="btn btn-sm btn-outline-danger w-100" onclick="cancelFromList('${event.id}')">
-                            <i class="bi bi-x-circle me-1"></i>İptal Et
-                        </button>
+                        <button class="btn btn-sm btn-outline-danger w-100 rounded-pill mt-2" onclick="cancelFromList('${event.id}')">İptal Et</button>
                     </div>
-                </div>
-            `;
-            listContainer.innerHTML += html;
+                </div>`;
         });
     }
 
-    // --- 4. LİSTEDEN İPTAL ETME FONKSİYONU ---
     function cancelFromList(eventId) {
-        Swal.fire({
-            title: 'Randevuyu İptal Et?',
-            text: "Bu işlem geri alınamaz.",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            confirmButtonText: 'Evet, İptal Et',
-            cancelButtonText: 'Vazgeç'
-        }).then((result) => {
+        Swal.fire({ title: 'İptal?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', confirmButtonText: 'İptal Et' }).then((result) => {
             if (result.isConfirmed) {
-                // Takvimden bul ve sil
                 const event = calendar.getEventById(eventId);
-                if (event) {
-                    event.remove(); // Takvimden sil
-                    updateRightPanelList(); // Listeyi güncelle
-                    
-                    Swal.fire(
-                        'İptal Edildi!',
-                        'Randevu başarıyla silindi.',
-                        'success'
-                    );
-                }
+                if (event) { event.remove(); updateRightPanelList(); }
             }
         });
     }
 
-    // Helper Functions
     function formatTime(date) { return date.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }); }
     function toggleChat() { document.getElementById('pagerChat').classList.toggle('open'); }
     function sendMessage() {
         const input = document.getElementById('chatInput');
-        const body = document.getElementById('chatBody');
         if(!input.value) return;
-        body.innerHTML += `<div class="d-flex mb-3 flex-row-reverse"><div class="text-white p-2 rounded small" style="background-color: #f48c06;">${input.value}</div></div>`;
+        document.getElementById('chatBody').innerHTML += `<div class="d-flex mb-3 flex-row-reverse"><div class="text-white p-2 rounded small" style="background-color: #f48c06;">${input.value}</div></div>`;
         input.value = '';
-        body.scrollTop = body.scrollHeight;
     }
 </script>
 
