@@ -1,10 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, logout
 from django.contrib.auth.models import User
 import json
-from django.shortcuts import render
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login:home')
 
 
 def home(request):
@@ -23,7 +27,15 @@ def patient_signup_page(request):
 
 
 def patient_home_page(request):
-    return render(request, "PatientHomePage.html")
+    return render(request, "user/PatientHomePage.html")
+
+
+def about_page(request):
+    return render(request, "login/about.html")
+
+
+def contact_page(request):
+    return render(request, "login/contact.html")
 
 
 

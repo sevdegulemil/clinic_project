@@ -122,12 +122,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
-
 REDIS_HOST = os.environ.get("REDIS_HOST", "localhost")
 REDIS_PORT = int(os.environ.get("REDIS_PORT", 6379))
 
+STATIC_URL = "/static/"
+
 STATICFILES_DIRS = [
-    BASE_DIR.parent / 'assets',
+    BASE_DIR / "assets",
 ]
+
 STATIC_ROOT = BASE_DIR / "staticfiles"
