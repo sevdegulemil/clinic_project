@@ -8,46 +8,46 @@
             color: #333333;
         }
 
-        .hero-section {
+.hero-section {
             flex: 1;
             display: flex;
             align-items: center;
             padding: 50px 0;
         }
 
-        .navbar-brand {
+.navbar-brand {
             font-weight: bold;
             font-size: 1.5rem;
         }
 
-        .navbar-brand img {
+.navbar-brand img {
             height: 50px;
             width: auto;
         }
 
-        .btn-primary {
+.btn-primary {
             background-color: #3b5173;
             border-color: #3b5173;
         }
-        .btn-primary:hover {
+.btn-primary:hover {
             background-color: #1a3655;
             border-color: #1a3655;
         }
 
-        .btn-outline-dark {
+.btn-outline-dark {
             color: #ffffff;
             border-color: #3b5173;
         }
-        .btn-outline-dark:hover {
+.btn-outline-dark:hover {
             background-color: #1a3655;
             border-color: #1a3655;
             color: #ffffff;
         }
-        .btn {
+.btn {
             background-color: #3b5173;
         }
        
-        .hero-animation {
+.hero-animation {
             width: 100% !important;
             max-width: 550px;
             height: 550px;
@@ -55,7 +55,7 @@
 
 
 
-    @media (max-width: 1200px) {
+@media (max-width: 1200px) {
         .hero-animation {
             width: 100% !important;
             max-width: 450px;
@@ -63,7 +63,7 @@
         }
     }
 
-    @media (max-width: 991px) {
+@media (max-width: 991px) {
         .hero-animation {
             width: 90% !important; 
             max-width: 400px;
@@ -75,7 +75,7 @@
         }
     }
 
-    @media (max-width: 768px) {
+@media (max-width: 768px) {
         .hero-animation {
             width: 85% !important;
             max-width: 350px;
@@ -83,7 +83,7 @@
         }
     }
 
-    @media (max-width: 576px) {
+@media (max-width: 576px) {
         .hero-animation {
             width: 100% !important;
             max-width: 300px;
