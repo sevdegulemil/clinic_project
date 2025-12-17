@@ -58,7 +58,7 @@ ROOT_URLCONF = 'solix_dent_clinic.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,3 +127,7 @@ STATIC_URL = 'static/'
 REDIS_HOST = os.environ.get("REDIS_HOST", "localhost")
 REDIS_PORT = int(os.environ.get("REDIS_PORT", 6379))
 
+STATICFILES_DIRS = [
+    BASE_DIR.parent / 'assets',
+]
+STATIC_ROOT = BASE_DIR / "staticfiles"
