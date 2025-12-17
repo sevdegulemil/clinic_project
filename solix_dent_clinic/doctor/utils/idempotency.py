@@ -3,7 +3,7 @@ from doctor.models import IdempotentRequest
 
 def check_idempotency(user, action):
     """
-    Aynı kullanıcı aynı action'ı daha önce yaptı mı?
+    Aynı kullanıcı aynı action'ı daha önce yaptı mıv?
     """
     key = f"{user.id}:{action}"
 
