@@ -69,6 +69,17 @@
         
         .hidden { display: none !important; }
 
+        /* PROFİL BUTONU */
+        .profile-btn {
+            background-color: #3b5173 !important; 
+            color: #ffffff !important;             
+            transition: 0.3s !important;
+        }
+        .profile-btn:hover, .profile-btn:focus, .profile-btn:active, .profile-btn.show {
+            background-color: #1a3655 !important; 
+            color: #ffffff !important;
+        }
+
         @media (max-width: 768px) {
             .custom-card { padding: 1.5rem; }
             .profile-icon-circle { width: 130px; height: 130px; }
@@ -82,9 +93,26 @@
             <a class="navbar-brand" href="Home.html">
                 <img src="../assets/Logo.jpg" alt="SOLİX Dent Clinic" style="height: 55px;">
             </a>
+            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="btn border-0 rounded-pill px-3 py-2 dropdown-toggle d-flex align-items-center profile-btn" type="button" data-bs-toggle="dropdown">
+                                <img src="../assets/personicon.jpeg" alt="Profil" class="rounded-circle me-2 border border-white" style="width: 30px; height: 30px; object-fit: cover;">
+                                <span class="fw-medium">Ahmet Yılmaz</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow">
+                                <li><a class="dropdown-item text-danger" href="Home.html">Çıkış Yap</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 

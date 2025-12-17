@@ -27,9 +27,9 @@
 
         /* PROFİL BUTONU */
         .profile-btn {
-            background-color: #1a3655 !important; 
+            background-color: #3b5173 !important; 
             color: #ffffff !important;             
-            transition: none !important;
+            transition: 0.3s !important;
         }
         .profile-btn:hover, .profile-btn:focus, .profile-btn:active, .profile-btn.show {
             background-color: #1a3655 !important; 
@@ -83,24 +83,27 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white py-4 shadow-sm">
-    <div class="container-fluid px-4">
+<nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
+    <div class="container">
         <a class="navbar-brand" href="Home.html">
-            <img src="../assets/Logo.jpg" alt="SOLİX Dent Clinic" style="height: 50px; width: auto;"> 
+            <img src="../assets/Logo.jpg" alt="SOLİX Dent Clinic" style="height: 55px;">
         </a>
+        
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <div class="ms-auto">
-                <div class="dropdown">
-                    <button class="btn border-0 rounded-pill px-3 py-2 dropdown-toggle d-flex align-items-center profile-btn" type="button" data-bs-toggle="dropdown">
-                        <img src="../assets/personicon.jpeg" alt="Profil" class="rounded-circle me-2 border border-white" style="width: 30px; height: 30px; object-fit: cover;">
-                        <span class="fw-medium">Ayşenur Mayuk</span>
-                    </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav align-items-center">
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn border-0 rounded-pill px-3 py-2 dropdown-toggle d-flex align-items-center profile-btn" type="button" data-bs-toggle="dropdown">
+                            <img src="../assets/personicon.jpeg" alt="Profil" class="rounded-circle me-2 border border-white" style="width: 30px; height: 30px; object-fit: cover;">
+                            <span class="fw-medium">Ayşenur Mayuk</span>
+                        </button>
                     <ul class="dropdown-menu dropdown-menu-end shadow">
                         <li><a class="dropdown-item" href="#" style="color: #1a3655;">Profilim</a></li>
-                        <li><a class="dropdown-item text-danger" href="#">Çıkış Yap</a></li>
+                        <li><a class="dropdown-item text-danger" href="Home.html">Çıkış Yap</a></li>
                     </ul>
                 </div>
             </div>
