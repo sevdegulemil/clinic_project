@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -86,7 +87,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="Home.html">
-            <img src="../assets/Logo.jpg" alt="SOLİX Dent Clinic" style="height: 55px;">
+            <img src="{% static 'Logo.jpg' %}" alt="SOLİX Dent Clinic" style="height: 55px;">
         </a>
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -98,7 +99,7 @@
                 <li class="nav-item">
                     <div class="dropdown">
                         <button class="btn border-0 rounded-pill px-3 py-2 dropdown-toggle d-flex align-items-center profile-btn" type="button" data-bs-toggle="dropdown">
-                            <img src="../assets/personicon.jpeg" alt="Profil" class="rounded-circle me-2 border border-white" style="width: 30px; height: 30px; object-fit: cover;">
+                            <img src="{% static 'personicon.jpeg' %}" alt="Profil" class="rounded-circle me-2 border border-white" style="width: 30px; height: 30px; object-fit: cover;">
                             <span class="fw-medium">Ayşenur Mayuk</span>
                         </button>
                     <ul class="dropdown-menu dropdown-menu-end shadow">
