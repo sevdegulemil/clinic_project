@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasta Profili - SOLİX Dent Clinic</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body { 
+            background-color: #f4f7f6; 
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .main-container {
+            flex-grow: 1;
+        }
+        .profile-header {
+            background: linear-gradient(135deg, #6096BA, #27496D);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: -50px;
+            border-bottom-left-radius: 30% 10%;
+            border-bottom-right-radius: 30% 10%;
+        }
+        .profile-card {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            margin-top: -80px;
+            z-index: 10;
+            position: relative;
+        }
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #ffffff;
+            margin-top: -125px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .form-label {
+            font-weight: 600;
+            color: #27496D;
+            font-size: 0.9rem;
+        }
+        .form-control:disabled, .form-select:disabled {
+            background-color: #e9ecef;
+            opacity: 1;
+        }
+        .btn-primary-custom {
+            background-color: #6096BA;
+            border-color: #6096BA;
+            font-weight: 600;
+            padding: 10px 25px;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+        .btn-primary-custom:hover {
+            background-color: #27496D;
+            border-color: #27496D;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .btn-secondary-custom {
+            font-weight: 600;
+            padding: 10px 25px;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="main-container">
+    <div class="profile-header text-center">
+        <h1 class="display-5 fw-bold">Hasta Profil Paneli</h1>
+    </div>
+
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <img src="{% static 'images/personicon.jpeg' %}" alt="Profil Resmi" class="profile-pic">
+        </div>
+
+        <div class="profile-card">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-bold m-0" style="color: #27496D;">Kişisel Bilgiler</h3>
+                <div>
+                    <button id="editButton" class="btn btn-secondary-custom">Düzenle</button>
+                    <button id="saveButton" type="submit" form="profileForm" class="btn btn-primary-custom" hidden>Kaydet</button>
+                    <a href="{% url 'user:patient_home' %}" class="btn btn-outline-secondary">Ana Sayfa</a>
+                </div>
+            </div>
+
+            <form id="profileForm" method="POST">
+                {% csrf_token %}
+                <fieldset id="profileFieldset" disabled>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="firstName" class="form-label">Ad</label>
+                            <input type="text" class="form-control" id="firstName" name="first_name" value="{{ request.user.first_name|default_if_none:'' }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="lastName" class="form-label">Soyad</label>
+                            <input type="text" class="form-control" id="lastName" name="last_name" value="{{ request.user.last_name|default_if_none:'' }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">E-posta</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ request.user.email|default_if_none:'' }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phone" class="form-label">Telefon Numarası</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" value="{{ patient.phone|default_if_none:'' }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="birthDate" class="form-label">Doğum Tarihi</label>
+                            <input type="date" class="form-control" id="birthDate" name="birth_date" value="{{ patient.birth_date|date:'Y-m-d'|default_if_none:'' }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="gender" class="form-label">Cinsiyet</label>
+                            <select id="gender" name="gender" class="form-select">
+                                <option value="">Seçiniz...</option>
+                                <option value="M" {% if patient.gender == "M" %}selected{% endif %}>Erkek</option>
+                                <option value="F" {% if patient.gender == "F" %}selected{% endif %}>Kadın</option>
+                                <option value="O" {% if patient.gender == "O" %}selected{% endif %}>Diğer</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="bloodType" class="form-label">Kan Grubu</label>
+                            <select id="bloodType" name="blood_type" class="form-select">
+                                <option value="">Seçiniz...</option>
+                                {% for type_key, type_value in patient.BLOOD_TYPE_CHOICES %}
+                                <option value="{{ type_key }}" {% if patient.blood_type == type_key %}selected{% endif %}>{{ type_value }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="allergies" class="form-label">Alerjiler</label>
+                            <textarea class="form-control" id="allergies" name="allergies" rows="3">{{ patient.allergies|default_if_none:'' }}</textarea>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer class="text-white py-4 mt-5" style="background-color: #333333;">
+    <div class="container text-center">
+        <p class="mb-0">&copy; 2025 SOLİX Dent Clinic</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const editButton = document.getElementById('editButton');
+    const saveButton = document.getElementById('saveButton');
+    const profileFieldset = document.getElementById('profileFieldset');
+
+    editButton.addEventListener('click', () => {
+        alert('Düzenleme modu aktif!');
+        profileFieldset.disabled = false;
+        editButton.hidden = true;
+        saveButton.hidden = false;
+    });
+</script>
+
+</body>
+</html>
