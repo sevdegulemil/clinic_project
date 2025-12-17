@@ -1,0 +1,92 @@
+body { 
+            background-color: #E7ECEF; 
+            font-family: 'Montserrat', sans-serif; 
+            min-height: 100vh; 
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .navbar { margin-bottom: 3rem; }
+
+        .profile-container { 
+            width: 100%;
+            max-width: 1100px; 
+            margin: 0 auto; 
+            padding: 0 15px; 
+        }
+
+        .custom-card { 
+            background-color: #ffffff; 
+            border-radius: 1.5rem; 
+            box-shadow: 0 10px 25px rgba(59, 81, 115, 0.1); 
+            border: none; 
+            padding: 3rem; 
+            margin-bottom: 2.5rem; 
+            width: 100%; 
+        }
+        
+        .profile-btn {
+            background-color: #1a3655 !important; 
+            color: #ffffff !important;             
+            transition: none !important;
+        }
+        .profile-icon-circle { 
+            width: 180px; 
+            height: 180px; 
+            background-color: #3b5173; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+        }
+
+        .profile-icon-circle img { width: 100%; height: 100%; object-fit: cover; }
+
+        .info-label { color: #3b5173; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 0.2rem; }
+        .appointment-header { color: #3b5173; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; text-align: center; margin-bottom: 2rem; }
+        .table-custom th { padding: 1.2rem; color: #3b5173; }
+        .edit-btn, .save-btn { color: #3b5173; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: 0.3s; cursor: pointer; border: none; background: none; }
+
+        .info-value { color: #333333; font-weight: 500; margin-bottom: 1.5rem; }
+        .table-custom td { padding: 1.2rem; vertical-align: middle; color: #333333; font-weight: 500; border: none; }
+        .form-control-custom { border: 1px solid #ced4da; border-radius: 8px; padding: 8px 12px; margin-bottom: 15px; width: 100%; font-family: 'Montserrat', sans-serif; color: #333333; }
+        
+        .save-btn { color: #6096BA; }
+        .save-btn:disabled { color: #bdc3c7 !important; cursor: not-allowed; opacity: 0.5; }
+        
+        .table-custom { width: 100%; margin-bottom: 0; }
+        .table-custom tr { background-color: #f8f9fa; border-radius: 15px; }
+        .status-badge { padding: 0.6rem 1.2rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700; background-color: #6096BA; color: white; }
+        
+        .hidden { display: none !important; }
+
+        /* PROFİL BUTONU */
+        .profile-btn {
+            background-color: #3b5173 !important; 
+            color: #ffffff !important;             
+            transition: 0.3s !important;
+        }
+        .profile-btn:hover, .profile-btn:focus, .profile-btn:active, .profile-btn.show {
+            background-color: #1a3655 !important; 
+            color: #ffffff !important;
+        }
+
+        @media (max-width: 768px) {
+            .profile-container {
+                width: 100%;
+                padding: 0;
+            }
+            .custom-card { 
+                padding: 1.5rem; 
+            }
+            .profile-icon-circle { 
+                width: 130px; 
+                height: 130px; 
+            }
+            .table-responsive {
+                overflow-x: auto;
+            }
+        }
