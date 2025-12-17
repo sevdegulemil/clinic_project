@@ -132,3 +132,8 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# Auth redirect settings
+LOGIN_URL = "/patient-login/"
+LOGIN_REDIRECT_URL = "/patient-home/"
+LOGOUT_REDIRECT_URL = "/"

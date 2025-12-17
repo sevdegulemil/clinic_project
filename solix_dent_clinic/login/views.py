@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate, logout
+from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.models import User
 import json
-
+from django.contrib.auth import logout
 
 def logout_view(request):
     logout(request)
-    return redirect('login:home')
+    return redirect("/")
 
 
 def home(request):
@@ -38,7 +38,6 @@ def contact_page(request):
     return render(request, "login/contact.html")
 
 
-
 @csrf_exempt
 def login_view(request):
     if request.method != "POST":
@@ -49,17 +48,32 @@ def login_view(request):
     password = data.get("password")
 
     if not email or not password:
-        return JsonResponse({"ok": False, "error": "Email and password required"}, status=400)
+        return JsonResponse(
+            {"ok": False, "error": "Email and password required"},
+            status=400
+        )
 
     try:
         user_obj = User.objects.get(email=email)
     except User.DoesNotExist:
-        return JsonResponse({"ok": False, "error": "Invalid credentials"}, status=401)
+        return JsonResponse(
+            {"ok": False, "error": "Invalid credentials"},
+            status=401
+        )
 
-    user = authenticate(username=user_obj.username, password=password)
+    user = authenticate(
+        request,
+        username=user_obj.username,
+        password=password
+    )
 
     if user is None:
-        return JsonResponse({"ok": False, "error": "Invalid credentials"}, status=401)
+        return JsonResponse(
+            {"ok": False, "error": "Invalid credentials"},
+            status=401
+        )
+
+    login(request, user)
 
     return JsonResponse({
         "ok": True,

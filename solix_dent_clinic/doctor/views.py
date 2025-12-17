@@ -288,12 +288,6 @@ def get_branches(request):
     return JsonResponse(list(branches), safe=False)
 
 @login_required
-def get_doctors(request):
-    branch = request.GET.get('branch')
-    doctors = Doctor.objects.filter(branch=branch).values('id', 'name')
-    return JsonResponse(list(doctors), safe=False)
-
-@login_required
 def get_slots(request):
     doctor_id = request.GET.get('doctor_id')
     date_str = request.GET.get('date')
