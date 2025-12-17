@@ -22,6 +22,11 @@ def patient_signup_page(request):
     return render(request, "login/PatientSignUpPage.html")
 
 
+def patient_home_page(request):
+    return render(request, "PatientHomePage.html")
+
+
+
 @csrf_exempt
 def login_view(request):
     if request.method != "POST":

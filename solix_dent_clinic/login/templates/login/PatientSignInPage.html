@@ -155,7 +155,7 @@ async function loginPatient(event) {
     localStorage.setItem("user_email", data.email);
     localStorage.setItem("user_id", data.user_id);
 
-    window.location.href = "/";
+    window.location.href = "/patient-home/";
   } else {
     alert(data.error);
   }
